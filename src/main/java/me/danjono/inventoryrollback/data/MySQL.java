@@ -33,7 +33,8 @@ public class MySQL {
         JOIN(ConfigData.getMySQLTablePrefix() + "joins"),
         QUIT(ConfigData.getMySQLTablePrefix() + "quits"),
         WORLD_CHANGE(ConfigData.getMySQLTablePrefix() + "world_changes"),
-        FORCE(ConfigData.getMySQLTablePrefix() + "force_backups");
+        FORCE(ConfigData.getMySQLTablePrefix() + "force_backups"),
+        MEMBER_PRESENCE(ConfigData.getMySQLTablePrefix() + "member_presence");
 
         private final String tableName;
 
@@ -142,6 +143,8 @@ public class MySQL {
             return BackupTable.WORLD_CHANGE;
         } else if (logType == LogType.FORCE) {
             return BackupTable.FORCE;
+        } else if (logType == LogType.MEMBER_PRESENCE) {
+            return BackupTable.MEMBER_PRESENCE;
         }
 
         return null;
@@ -439,6 +442,7 @@ public class MySQL {
         backupLocations.add(new File(backupArea, "quits"));
         backupLocations.add(new File(backupArea, "worldChanges"));
         backupLocations.add(new File(backupArea, "force"));
+        backupLocations.add(new File(backupArea, "memberPresence"));
 
         List<LogType> logTypeFiles = new ArrayList<>();
         int logTypeNumber = 0;
@@ -447,6 +451,7 @@ public class MySQL {
         logTypeFiles.add(LogType.QUIT);
         logTypeFiles.add(LogType.WORLD_CHANGE);
         logTypeFiles.add(LogType.FORCE);
+        logTypeFiles.add(LogType.MEMBER_PRESENCE);
 
         for (File backupType : backupLocations) {
             LogType logType = logTypeFiles.get(logTypeNumber);

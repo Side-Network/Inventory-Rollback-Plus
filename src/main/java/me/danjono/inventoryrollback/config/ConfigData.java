@@ -90,6 +90,7 @@ public class ConfigData {
     private static int maxSavesDeath;
     private static int maxSavesWorldChange;
     private static int maxSavesForce;
+    private static int maxSavesMemberPresence;
 
     private static long timeZoneOffsetMillis;
     private static TimeZone timeZone;
@@ -139,6 +140,7 @@ public class ConfigData {
         setMaxSavesDeath((int) getDefaultValue("max-saves.death", 50));
         setMaxSavesWorldChange((int) getDefaultValue("max-saves.world-change", 10));	
         setMaxSavesForce((int) getDefaultValue("max-saves.force", 10));
+        setMaxSavesMemberPresence((int) getDefaultValue("max-saves.member-presence", 10));
 
         setTimeZone((String) getDefaultValue("time-zone", "GMT"));
         setTimeFormat((String) getDefaultValue("time-format", "dd/MM/yyyy HH:mm:ss a"));
@@ -235,6 +237,10 @@ public class ConfigData {
 
     public static void setMaxSavesForce(int value) {
         maxSavesForce = value;
+    }
+
+    public static void setMaxSavesMemberPresence(int maxSavesMemberPresence) {
+        ConfigData.maxSavesMemberPresence = maxSavesMemberPresence;
     }
 
     public static void setTimeZone(String zone) {
@@ -353,6 +359,10 @@ public class ConfigData {
 
     public static int getMaxSavesForce() {
         return maxSavesForce;
+    }
+
+    public static int getMaxSavesMemberPresence() {
+        return maxSavesMemberPresence;
     }
 
     public static long getTimeZoneOffsetMillis() {

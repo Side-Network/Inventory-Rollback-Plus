@@ -452,8 +452,9 @@ public class PlayerData {
             return ConfigData.getMaxSavesWorldChange();
         } else if (logType == LogType.FORCE) {
             return ConfigData.getMaxSavesForce();
+        } else if (logType == LogType.MEMBER_PRESENCE) {
+            return ConfigData.getMaxSavesMemberPresence();
         }
-
 
         return 0;
     }

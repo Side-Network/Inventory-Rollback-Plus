@@ -103,6 +103,8 @@ public class YAML {
             backupLocation = new File(backupLocation, "worldChanges");
         } else if (backupLogType == LogType.FORCE) {
             backupLocation = new File(backupLocation, "force");
+        } else if (backupLogType == LogType.MEMBER_PRESENCE) {
+            backupLocation = new File(backupLocation, "memberPresence");
         }
 
         return backupLocation;
@@ -116,7 +118,7 @@ public class YAML {
         return getAmountOfBackups() > 0;
     }
 
-    public int getAmountOfBackups() {         
+    public int getAmountOfBackups() {
         if (!playerBackupFolder.exists()) return 0;
 
         String[] filesArr = playerBackupFolder.list();
@@ -382,6 +384,7 @@ public class YAML {
         logTypeFiles.add(LogType.QUIT);
         logTypeFiles.add(LogType.WORLD_CHANGE);
         logTypeFiles.add(LogType.FORCE);
+        logTypeFiles.add(LogType.MEMBER_PRESENCE);
 
         for (File backupFolders : backupLocations) {
             if (!backupFolders.exists()) {

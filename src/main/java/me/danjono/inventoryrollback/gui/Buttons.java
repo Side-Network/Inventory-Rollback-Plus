@@ -45,6 +45,8 @@ public class Buttons {
 
     private static final Material forceSave = Material.DIAMOND;
 
+    private static final Material memberPresence = Material.ARMS_UP_POTTERY_SHERD;
+
 
     private static final Material pageSelector =
             InventoryRollbackPlus.getInstance().getVersion().isAtLeast(EnumNmsVersion.v1_13_R1) ?
@@ -95,6 +97,10 @@ public class Buttons {
     
     public static Material getForceSaveLogIcon() {
         return forceSave;
+    }
+
+    public static Material getMemberPresenceLogIcon() {
+        return memberPresence;
     }
 
     public static Material getPageSelectorIcon() {
@@ -450,6 +456,28 @@ public class Buttons {
         }
         
         meta.setDisplayName(ChatColor.AQUA + "Force Saves");
+
+        item.setItemMeta(meta);
+
+        NBTWrapper nbt = new NBTWrapper(item);
+
+        nbt.setString("uuid", uuid.toString());
+        nbt.setString("logType", logType.name());
+        item = nbt.setItemData();
+
+        return item;
+    }
+
+    public ItemStack createMemberPresenceLogButton(LogType logType, List<String> lore) {
+        ItemStack item = new ItemStack(getMemberPresenceLogIcon());
+        ItemMeta meta = item.getItemMeta();
+
+        assert meta != null;
+        if (lore != null) {
+            meta.setLore(lore);
+        }
+
+        meta.setDisplayName(ChatColor.GREEN + "Island joins, leaves and kicks");
 
         item.setItemMeta(meta);
 

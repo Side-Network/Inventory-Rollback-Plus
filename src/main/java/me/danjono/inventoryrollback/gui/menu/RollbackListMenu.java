@@ -96,8 +96,12 @@ public class RollbackListMenu {
                 List<String> lore = new ArrayList<>();
 
                 String deathReason = playerData.getDeathReason();
-                if (deathReason != null)
-                    lore.add(MessageData.getDeathReason(deathReason));
+                if (deathReason != null) {
+                    if (logType != LogType.MEMBER_PRESENCE)
+                        lore.add(MessageData.getDeathReason(deathReason));
+                    else
+                        lore.add(MessageData.convertColorCodes("&6Action: &f" + deathReason));
+                }
 
                 String world = playerData.getWorld();
                 double x = playerData.getX();

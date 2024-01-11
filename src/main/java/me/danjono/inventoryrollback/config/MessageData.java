@@ -601,7 +601,7 @@ public class MessageData {
         return backButton;
     }
     
-    private static String convertColorCodes(String text) {
+    public static String convertColorCodes(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 

@@ -1,5 +1,7 @@
 package me.danjono.inventoryrollback.listeners;
 
+import com.bgsoftware.superiorskyblock.api.events.*;
+import com.bgsoftware.superiorskyblock.api.wrappers.SuperiorPlayer;
 import com.nuclyon.technicallycoded.inventoryrollback.InventoryRollbackPlus;
 import com.nuclyon.technicallycoded.inventoryrollback.nms.EnumNmsVersion;
 import me.danjono.inventoryrollback.config.ConfigData;
@@ -145,4 +147,54 @@ public class EventLogs implements Listener {
 		return false;
 	}
 
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onIslandJoin(IslandJoinEvent event) {
+		Player player = event.getPlayer().asPlayer();
+		if (player == null)
+			return;
+
+		new SaveInventory(player, LogType.MEMBER_PRESENCE, null, "JOIN", player.getInventory(), player.getEnderChest()).createSave(true);
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onIslandKick(IslandKickEvent event) {
+		Player player = event.getTarget().asPlayer();
+		if (player == null)
+			return;
+
+		new SaveInventory(player, LogType.MEMBER_PRESENCE, null, "KICK", player.getInventory(), player.getEnderChest()).createSave(true);
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onIslandQuit(IslandQuitEvent event) {
+		Player player = event.getPlayer().asPlayer();
+		if (player == null)
+			return;
+
+		new SaveInventory(player, LogType.MEMBER_PRESENCE, null, "QUIT", player.getInventory(), player.getEnderChest()).createSave(true);
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onIslandCreate(IslandCreateEvent event) {
+		Player player  = event.getPlayer().asPlayer();
+		if (player == null)
+			return;
+
+		new SaveInventory(player, LogType.MEMBER_PRESENCE, null, "CREATED_ISLAND", player.getInventory(), player.getEnderChest()).createSave(true);
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onIslandDisband(IslandDisbandEvent event) {
+		Player player;
+		for (SuperiorPlayer member : event.getIsland().getIslandMembers(true)) {
+			if (!member.isOnline())
+				continue;
+
+			player = member.asPlayer();
+			if (player == null)
+				continue;
+
+			new SaveInventory(player, LogType.MEMBER_PRESENCE, null, "DISBAND", player.getInventory(), player.getEnderChest()).createSave(true);
+		}
+	}
 }

@@ -40,7 +40,8 @@ public class PlayerMenu {
         inventory.setItem(3, buttons.createJoinLogButton(LogType.JOIN, null));
         inventory.setItem(4, buttons.createQuitLogButton(LogType.QUIT, null));
         inventory.setItem(5, buttons.createWorldChangeLogButton(LogType.WORLD_CHANGE, null));
-        inventory.setItem(6, buttons.createForceSaveLogButton(LogType.FORCE, null));
+        inventory.setItem(6, buttons.createMemberPresenceLogButton(LogType.MEMBER_PRESENCE, null));
+        inventory.setItem(7, buttons.createForceSaveLogButton(LogType.FORCE, null));
     }
 
     public Inventory getInventory() {
@@ -70,6 +71,7 @@ public class PlayerMenu {
         PlayerData joinBackup = new PlayerData(uuid, LogType.JOIN, null);
         PlayerData quitBackup = new PlayerData(uuid, LogType.QUIT, null);
         PlayerData worldChangeBackup = new PlayerData(uuid, LogType.WORLD_CHANGE, null);
+        PlayerData memberPresenceBackup = new PlayerData(uuid, LogType.MEMBER_PRESENCE, null);
         PlayerData forceSaveBackup = new PlayerData(uuid, LogType.FORCE, null);
 
         if (!joinBackup.doesBackupTypeExist()
@@ -96,8 +98,11 @@ public class PlayerMenu {
         List<String> worldChange = Arrays.asList(worldChangeBackup.getAmountOfBackups() + backupsAvailable);
         inventory.setItem(5, buttons.createWorldChangeLogButton(LogType.WORLD_CHANGE, worldChange));
         
+        List<String> memberPresenceSaves = Arrays.asList(memberPresenceBackup.getAmountOfBackups() + backupsAvailable);
+        inventory.setItem(6, buttons.createMemberPresenceLogButton(LogType.MEMBER_PRESENCE, memberPresenceSaves));
+
         List<String> forceSaves = Arrays.asList(forceSaveBackup.getAmountOfBackups() + backupsAvailable);
-        inventory.setItem(6, buttons.createForceSaveLogButton(LogType.FORCE, forceSaves));
+        inventory.setItem(7, buttons.createForceSaveLogButton(LogType.FORCE, forceSaves));
     }
 
 }
